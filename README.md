@@ -2,8 +2,11 @@
 The official Herobrine mod for MCPE.
 
 Current Version : 1.0.5a2
+
 Supported Devices : All
+
 MC:PE Version : 0.15.6
+
 Tested & Developed on : Samsung Galaxy Tab 3 8.0
 
 ★ Pre-Multiplayer Support 
