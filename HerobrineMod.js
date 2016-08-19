@@ -1,3 +1,17 @@
+/*
+//This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. //
+//You are free to://
+//Share - copy and redistribute the material in any medium or format//
+//Adapt - remix, transform, and build upon the material for any purpose, even commercially, But with credit to the original author.//
+//The licensor cannot revoke these freedoms as long as you follow the license terms.//
+//Under the following terms:
+//Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. //
+//You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+//ShareAlike - If you remix, transform, or build upon the material, you must ask the Owner of this mod if you can release it to the public.//
+//No additional restrictions - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+*/
+
+
 var START = 0;
 
 var sF = Level.getBiomeName;
@@ -260,36 +274,7 @@ function modTick() {
             var e = hrandom(0, 256);
             var f = hrandom(0, 256);
             ModPE.playSoundFromFile("defeat.ogg");
-            setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() + 1, 51), setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() + 2, 51), 
-            setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() - 1, 51), setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() - 2, 51), 
-            setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ(), 51), setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() + 1, 51), 
-            setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() + 2, 51), setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() - 1, 51), 
-            setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() - 2, 51), setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() + 3, 51), 
-            setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() + 3, 51), setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() - 3, 51), 
-            setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() - 3, 51), setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() + 2, 51), 
-            setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() + 2, 51), setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() - 2, 51), 
-            setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() - 2, 51), setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 5, 51), 
-            setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 5, 51), setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 5, 51), 
-            setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 5, 51), setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 4, 51), 
-            setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 4, 51), setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 4, 51), 
-            setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 4, 51), setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 3, 51), 
-            setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 3, 51), setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 3, 51), 
-            setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 3, 51), setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() - 5, 51), 
-            setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() - 6, 51), setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() + 5, 51), 
-            setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() + 6, 51), setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() - 5, 51), 
-            setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() - 6, 51), setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() + 5, 51), 
-            setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() + 6, 51), setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() - 5, 51), 
-            setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() - 6, 51), setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() + 5, 51), 
-            setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() + 6, 51), setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() - 5, 51), 
-            setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() - 6, 51), setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() + 5, 51), 
-            setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() + 6, 51), setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() - 6, 51), 
-            setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() - 7, 51), setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() + 6, 51), 
-            setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() + 7, 51), setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() - 6, 51), 
-            setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() - 7, 51), setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() + 6, 51), 
-            setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() + 7, 51), setTile(Player.getX() + 1, Player.getY() - 1, Player.getZ() - 7, 51), 
-            setTile(Player.getX() + 1, Player.getY() - 1, Player.getZ() + 7, 51), setTile(Player.getX() - 1, Player.getY() - 1, Player.getZ() - 7, 51), 
-            setTile(Player.getX() - 1, Player.getY() - 1, Player.getZ() + 7, 51), setTile(Player.getX(), Player.getY() - 1, Player.getZ() - 7, 51), 
-            setTile(Player.getX(), Player.getY() - 1, Player.getZ() + 7, 51);
+            setTile(Player.getX()+7,Player.getY()-1,Player.getZ()+1,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()-1,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ(),51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()+1,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()-1,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-4,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+4,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-4,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+4,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()+1,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()+1,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()-1,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()-1,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX(),Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX(),Player.getY()-1,Player.getZ()+7,51);
         }
         if (Player.getPointedEntity() == Herobrine) {
             Entity.remove(Herobrine);
@@ -438,30 +423,7 @@ function deathHook(a, b) {
         Entity.remove(b);
         preventOverridingTick = 400;
         Level.spawnMob(Entity.getX(b), Entity.getY(b), Entity.getZ(b), 36);
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2), 
-        Level.addParticle(ParticleType.LAVA_BLOCK, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2);
         SPAWNED_CHECK = 0;
     }
     if ("herobrine.png" == Entity.getMobSkin(b) && b == THROW_BRINE) {
