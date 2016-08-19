@@ -2,7 +2,7 @@ var START = 0;
 
 var sF = Level.getBiomeName;
 
-ModPE.langEdit("menu.copyriGH_TIMERt", "©Mojang AB                                                 Herobrine Mod 1.0.5a1");
+ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.0.5a1");
 
 ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from Herobrine, He miGH_TIMERt kill you anytime.");
 
