@@ -17,4 +17,4 @@ Tested & Developed on : Samsung Galaxy Tab 3 8.0
 
 BagasMC - Texturing, Scripting.
 
-We are currently looking for Talented Modders that are interested working on this Mod, i do not care if you are an enemy, hater, or even my friend, all will be treated like normal :).
+We are currently looking for Talented Modders that are interested working on this Mod.
