@@ -1,14 +1,14 @@
 /*
-//This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. //
-//You are free to://
-//Share - copy and redistribute the material in any medium or format//
-//Adapt - remix, transform, and build upon the material for any purpose, even commercially, But with credit to the original author.//
-//The licensor cannot revoke these freedoms as long as you follow the license terms.//
-//Under the following terms:
-//Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. //
-//You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-//ShareAlike - If you remix, transform, or build upon the material, you must ask the Owner of this mod if you can release it to the public.//
-//No additional restrictions - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. 
+You are free to:
+Share - copy and redistribute the material in any medium or format.
+Adapt - remix, transform, and build upon the material for any purpose, even commercially, But with credit to the original author.
+The licensor cannot revoke these freedoms as long as you follow the license terms.
+Under the following terms:
+Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. 
+You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
+ShareAlike - If you remix, transform, or build upon the material, you must ask the Owner of this mod if you can release it to the public.
+No additional restrictions - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
 */
 
 
@@ -16,13 +16,13 @@ var START = 0;
 
 var sF = Level.getBiomeName;
 
-ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.0.5a1");
+ModPE.langEdit("menu.copyright", "©Mojang AB                                                 ENTITY_HEROBRINE Mod 1.0.5a3");
 
-ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from Herobrine, He miGH_TIMERt kill you anytime.");
+ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from ENTITY_HEROBRINE, He miGH_TIMERt kill you anytime.");
 
-ModPE.langEdit("createWorldScreen.gameMode.creative.desc", "Unlimited resources. No damage. Flying. No achievements even if you switch to survival later. Herobrine will still annoy you.");
+ModPE.langEdit("createWorldScreen.gameMode.creative.desc", "Unlimited resources. No damage. Flying. No achievements even if you switch to survival later. ENTITY_HEROBRINE will still annoy you.");
 
-ModPE.langEdit("progressScreen.message.building", "Building terrain and summoning" + ChatColor.RED + " Herobrine");
+ModPE.langEdit("progressScreen.message.building", "Building terrain and summoning" + ChatColor.RED + " ENTITY_HEROBRINE");
 
 ModPE.setItem(324, "skull_skeleton", 0, "rooD nedooW");
 
@@ -44,7 +44,7 @@ var sound3 = new android.media.MediaPlayer();
 
 var start = true;
 
-var unstuck = -1;
+var S_RECHECKER = -1;
 
 var chicken = [];
 
@@ -59,6 +59,12 @@ var wolf = [];
 var villager = [];
 
 var mushroom = [];
+
+var POS_X = getPlayerX()
+
+var POS_Y = getPlayerY()
+
+var POS_Z = getPlayerZ()
 
 Name = "mp_username";
 
@@ -86,7 +92,7 @@ var HTIME_CHECK;
 
 var TIMER_TRUE;
 
-var Herobrine;
+var ENTITY_HEROBRINE;
 
 var SPAWNED_CHECK = 0;
 
@@ -102,11 +108,11 @@ var win = false;
 
 var THROW_TIMER;
 
-var HEROBRINE_POS1 = Entity.getX(Herobrine);
+var ENTITY_HEROBRINE_POS1 = Entity.getX(ENTITY_HEROBRINE);
 
-var HEROBRINE_POS2 = Entity.getY(Herobrine);
+var ENTITY_HEROBRINE_POS2 = Entity.getY(ENTITY_HEROBRINE);
 
-var HEROBRINE_POS3 = Entity.getZ(Herobrine);
+var ENTITY_HEROBRINE_POS3 = Entity.getZ(ENTITY_HEROBRINE);
 
 ModPE.serverScript = function(a) {
     com.mojang.minecraftpe.MainActivity.currentMainActivity.get().runOnUiThread(new java.lang.Runnable({
@@ -117,7 +123,7 @@ ModPE.serverScript = function(a) {
     if (a) Server.sendChat("BlockLauncher, enable scripts, please and thank you");
 };
 
-var toggle = false;
+var a = false;
 
 ModPE.serverScript(true);
 
@@ -126,11 +132,24 @@ function newLevel() {
     for (var b in a) {
         clientMessage("Succesfully loaded Herobrine Mod");
         clientMessage("Version : " + version);
-        clientMessage("New usage of Server.getAllPlayers in each hooks.");
+        checkVersion()
+        if(updateWindow) {
+        ctx.runOnUiThread(new java.lang.Runnable({
+            run: function() {
+                try {
+                    updateVersion();
+                }
+                catch(err) {
+                    clientMessage("Error: \n" + err);
+                }
+            }
+        }));
+        updateWindow=false;
     }
 }
+}
 
-var version = "1.0.5a1";
+var version = "1.0.5a3";
 
 var preventOverridingTick = 400;
 
@@ -139,7 +158,7 @@ function useItem(a, b, c, d, e, f) {
     for (var h in g) if (324 == d) clientMessage("uoy rof srood oN");
 }
 
-var timez = 15e3;
+var TIME_Z = 15e3;
 
 ModPE.playSoundFromFile = function(a) {
     try {
@@ -172,12 +191,12 @@ var minplus = null;
 function modTick() {
     var a = Server.getAllPlayers();
     for (var b in a) {
-        timez--;
+        TIME_Z--;
         HTIME_CHECK = Math.floor(800 * Math.random() + 1);
         GH_TIMER = Math.floor(2 * Math.random() + 1);
-        GH_TIMERm = Math.floor(2 * Math.random() + 1);
-        gsh = Math.floor(30 * Math.random() + 1);
-        gsmh = Math.floor(2 * Math.random() + 1);
+        GH_TM = Math.floor(2 * Math.random() + 1);
+        G_SH = Math.floor(25 * Math.random() + 1);
+        GS_MH = Math.floor(2 * Math.random() + 1);
         time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
         if (0 == SPAWNED_CHECK) {
             if (1 == HTIME_CHECK && 0 == TIMER_TRUE && false == D_SPAWN) {
@@ -186,55 +205,55 @@ function modTick() {
                 orX = Math.sin(pitch) * Math.cos(yaw);
                 orZ = Math.sin(pitch) * Math.sin(yaw);
                 if (1 == GH_TIMER && false == SPAWNED_CHECK) {
-                    if (1 == GH_TIMERm) {
-                        Herobrine = Level.spawnMob(getPlayerX() + gsh, getPlayerY(), getPlayerZ() + gsh, EntityType.GHAST, "3herobrine.png");
-                        Entity.setRenderType(Herobrine, 3);
-                        Entity.setHealth(Herobrine, 999999);
-                        Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                    if (1 == GH_TM) {
+                        ENTITY_HEROBRINE = Level.spawnMob(POS_X + G_SH, POS_Y, POS_Z + G_SH, EntityType.GHAST, "3herobrine.png");
+                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
+                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
+                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
                         var c = Math.floor(11 * Math.random() + 1);
                         ModPE.playSoundFromFile("herobrine" + c + ".ogg");
                         SPAWNED_CHECK = 1;
                     }
-                    if (2 == GH_TIMERm) {
-                        Herobrine = Level.spawnMob(getPlayerX() - gsh, getPlayerY(), getPlayerZ() - gsh, EntityType.GHAST, "3herobrine.png");
-                        Entity.setRenderType(Herobrine, 3);
-                        Entity.setHealth(Herobrine, 999999);
-                        Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                    if (2 == GH_TM) {
+                        ENTITY_HEROBRINE = Level.spawnMob(POS_X - G_SH, POS_Y, POS_Z - G_SH, EntityType.GHAST, "3herobrine.png");
+                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
+                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
+                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
                         var c = Math.floor(11 * Math.random() + 1);
                         ModPE.playSoundFromFile("herobrine" + c + ".ogg");
                         SPAWNED_CHECK = 1;
                     }
                 } else if (2 == GH_TIMER && false == SPAWNED_CHECK) {
-                    if (1 == GH_TIMERm) {
-                        Herobrine = Level.spawnMob(getPlayerX() + gsh, getPlayerY(), getPlayerZ() + gsh, EntityType.SILVERFISH, "3herobrine.png");
-                        Entity.setRenderType(Herobrine, 3);
-                        Entity.setHealth(Herobrine, 999999);
-                        Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                    if (1 == GH_TM) {
+                        ENTITY_HEROBRINE = Level.spawnMob(POS_X + G_SH, POS_Y, POS_Z + G_SH, EntityType.SILVERFISH, "3herobrine.png");
+                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
+                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
+                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
                         var c = Math.floor(11 * Math.random() + 1);
                         ModPE.playSoundFromFile("herobrine" + c + ".ogg");
-                        for (b = 0; b < cow.length; b++) Entity.setTarget(cow[b], Herobrine);
-                        if (1 == gsmh) Entity.setImmobile(Herobrine, true); else if (2 == gsmh) Entity.setImmobile(Herobrine, false);
+                        for (b = 0; b < cow.length; b++) Entity.setTarget(cow[b], ENTITY_HEROBRINE);
+                        if (1 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, true); else if (2 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, false);
                         SPAWNED_CHECK = 1;
                     }
-                    if (2 == GH_TIMERm) {
-                        Herobrine = Level.spawnMob(getPlayerX() - gsh, getPlayerY(), getPlayerZ() - gsh, EntityType.SILVERFISH, "3herobrine.png");
-                        Entity.setRenderType(Herobrine, 3);
-                        Entity.setHealth(Herobrine, 999999);
-                        Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                    if (2 == GH_TM) {
+                        ENTITY_HEROBRINE = Level.spawnMob(POS_X - G_SH, POS_Y, POS_Z - G_SH, EntityType.SILVERFISH, "3herobrine.png");
+                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
+                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
+                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
                         var c = Math.floor(11 * Math.random() + 1);
                         ModPE.playSoundFromFile("herobrine" + c + ".ogg");
-                        for (b = 0; b < cow.length; b++) Entity.setTarget(cow[b], Herobrine);
+                        for (b = 0; b < cow.length; b++) Entity.setTarget(cow[b], ENTITY_HEROBRINE);
                         SPAWNED_CHECK = 1;
-                        if (1 == gsmh) Entity.setImmobile(Herobrine, true); else if (2 == gsmh) Entity.setImmobile(Herobrine, false);
+                        if (1 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, true); else if (2 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, false);
                     }
                 }
-                unstuck = 20;
+                S_RECHECKER = 20;
             }
-            if (unstuck >= 1) {
-                unstuck -= 1;
-                if (0 == getTile(HEROBRINE_POS1, HEROBRINE_POS2, HEROBRINE_POS3)) ; else Entity.setPosition(Herobrine, HEROBRINE_POS1, HEROBRINE_POS2 + 1, HEROBRINE_POS3);
+            if (S_RECHECKER >= 1) {
+                S_RECHECKER -= 1;
+                if (0 == getTile(ENTITY_HEROBRINE_POS1, ENTITY_HEROBRINE_POS2, ENTITY_HEROBRINE_POS3)) ; else Entity.setPosition(ENTITY_HEROBRINE, ENTITY_HEROBRINE_POS1, ENTITY_HEROBRINE_POS2 + 1, ENTITY_HEROBRINE_POS3);
             }
-            if (0 == unstuck) unstuck = -1;
+            if (0 == S_RECHECKER) S_RECHECKER = -1;
             var d;
             d = Math.floor(200 * Math.random() + 1);
             if (1 == d) {
@@ -242,42 +261,42 @@ function modTick() {
                 yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
                 orX = Math.sin(pitch) * Math.cos(yaw);
                 orZ = Math.sin(pitch) * Math.sin(yaw);
-                Level.spawnMob(getPlayerX() - 10 * orX, getPlayerY(), getPlayerZ() - 20 * orZ, EntityType.LIGH_TIMERTNING_BOLT);
+                Level.spawnMob(POS_X - 10 * orX, POS_Y, POS_Z - 20 * orZ, EntityType.LIGHTNING_BOLT);
             }
         }
         if (0 == preventOverridingTick) {
-            Entity.remove(Herobrine);
+            Entity.remove(ENTITY_HEROBRINE);
             ModPE.playSoundFromFile("disappear.ogg");
             preventOverridingTick = 400;
             SPAWNED_CHECK = 0;
         }
         if (1 == SPAWNED_CHECK) {
             preventOverridingTick--;
-            if (compareDistance(Herobrine, 15)) {
-                Entity.remove(Herobrine);
+            if (compareDistance(ENTITY_HEROBRINE, 15)) {
+                Entity.remove(ENTITY_HEROBRINE);
                 ModPE.playSoundFromFile("disappear.ogg");
                 preventOverridingTick = 400;
                 SPAWNED_CHECK = 0;
             }
         }
-        if (0 == timez) {
-            timez = 15e3;
-            Herobrine = Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), 32, "3herobrine.png");
-            Entity.setRenderType(Herobrine, 3);
-            Entity.setHealth(Herobrine, 20);
+        if (0 == TIME_Z) {
+            TIME_Z = 15e3;
+            ENTITY_HEROBRINE = Level.spawnMob(POS_X, POS_Y, POS_Z, 32, "3herobrine.png");
+            Entity.setRenderType(ENTITY_HEROBRINE, 3);
+            Entity.setHealth(ENTITY_HEROBRINE, 20);
             clientMessage(ChatColor.RED + "Where is your god now?");
-            Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), 34);
-            Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), 34);
+            Level.spawnMob(POS_X, POS_Y, POS_Z, 34);
+            Level.spawnMob(POS_X, POS_Y, POS_Z, 34);
         }
-        if (14e3 == timez) {
+        if (14e3 == TIME_Z) {
             clientMessage(ChatColor.RED + "BURN BABY BURN!!!");
             var e = hrandom(0, 256);
             var f = hrandom(0, 256);
             ModPE.playSoundFromFile("defeat.ogg");
             setTile(Player.getX()+7,Player.getY()-1,Player.getZ()+1,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()-1,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ(),51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()+1,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()-1,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-4,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+4,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-4,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+4,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()+1,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()+1,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()-1,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()-1,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX(),Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX(),Player.getY()-1,Player.getZ()+7,51);
         }
-        if (Player.getPointedEntity() == Herobrine) {
-            Entity.remove(Herobrine);
+        if (Player.getPointedEntity() == ENTITY_HEROBRINE) {
+            Entity.remove(ENTITY_HEROBRINE);
             SPAWNED_CHECK = 0;
             preventOverridingTick = 400;
         }
@@ -287,7 +306,7 @@ function modTick() {
             yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
             orX = Math.sin(pitch) * Math.cos(yaw);
             orZ = Math.sin(pitch) * Math.sin(yaw);
-            THROW_BRINE = Level.spawnMob(getPlayerX() - 1 * orX, getPlayerY(), getPlayerZ() - 1 * orZ, EntityType.ZOMBIE, "herobrine.png");
+            THROW_BRINE = Level.spawnMob(POS_X - 1 * orX, POS_Y, POS_Z - 1 * orZ, EntityType.ZOMBIE, "herobrine.png");
             Entity.setRenderType(THROW_BRINE, 3);
             Entity.setHealth(THROW_BRINE, 10);
             Entity.setVelY(getPlayerEnt(), 1.5);
@@ -304,10 +323,10 @@ function modTick() {
         }
         time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
         if (time < 19200 / 2) ; else {
-            if (26 == getTile(getPlayerX(), getPlayerY(), getPlayerZ()) && false == COOL_DOWN_D && 0 == SPAWNED_CHECK && 0 == TIMER_TRUE) {
-                px = getPlayerX();
-                py = getPlayerY();
-                pz = getPlayerZ();
+            if (26 == getTile(POS_X, POS_Y, POS_Z) && false == COOL_DOWN_D && 0 == SPAWNED_CHECK && 0 == TIMER_TRUE) {
+                px = POS_X;
+                py = POS_Y;
+                pz = POS_Z;
                 DREAM_START = true;
             }
             if (true == DREAM_START) {
@@ -321,11 +340,11 @@ function modTick() {
             if (true == DREAM_END && false == COOL_DOWN_D) {
                 DREAM_ENDt--;
                 if (112 == DREAM_ENDt) {
-                    D_HEROBRINE = Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), EntityType.SILVERFISH, "3herobrine.png");
-                    Entity.setRenderType(D_HEROBRINE, 3);
-                    Entity.setHealth(D_HEROBRINE, 1);
-                    Entity.addEffect(D_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-                    ModPE.playSoundFromFile("herobrine_decoy.ogg");
+                    D_ENTITY_HEROBRINE = Level.spawnMob(POS_X, POS_Y, POS_Z, EntityType.SILVERFISH, "3herobrine.png");
+                    Entity.setRenderType(D_ENTITY_HEROBRINE, 3);
+                    Entity.setHealth(D_ENTITY_HEROBRINE, 1);
+                    Entity.addEffect(D_ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
+                    ModPE.playSoundFromFile("ENTITY_HEROBRINE_decoy.ogg");
                     D_SPAWN = true;
                 }
                 if (true == D_SPAWN) {
@@ -348,7 +367,7 @@ function procCmd(a) {
     var c = b[0];
     switch (c) {
       case "download":
-        ModPE.importScript("https://dl.dropboxusercontent.com/s/senrlknvweka08d/HerobrineMod.js?dl=0", "HerobrineMod.js");
+        ModPE.importScript("https://dl.dropboxusercontent.com/s/senrlknvweka08d/ENTITY_HEROBRINEMod.js?dl=0", "ENTITY_HEROBRINEMod.js");
     }
 }
 
@@ -378,7 +397,7 @@ var THROW_BRINE;
 
 var TIMER_END = 40;
 
-var D_HEROBRINE;
+var D_ENTITY_HEROBRINE;
 
 var LAVA_BLOCK;
 
@@ -386,7 +405,7 @@ var TIMER_TRUE = 0;
 
 function attackHook(a, b) {
     var c = Server.getAllPlayers();
-    for (var d in c) if (a == Herobrine) Level.addParticle(ParticleType.flame, Entity.getX(a), Entity.getY(a) + 1, Entity.getZ(a), 0, 0, 0, 20);
+    for (var d in c) if (a == ENTITY_HEROBRINE) Level.addParticle(ParticleType.flame, Entity.getX(a), Entity.getY(a) + 1, Entity.getZ(a), 0, 0, 0, 20);
 }
 
 function hrandom(a, b) {
@@ -435,7 +454,7 @@ function deathHook(a, b) {
         TIMER_TRUE = 0;
     }
     if (b == getPlayerEnt() && true == D_SPAWN) {
-        Entity.remove(D_HEROBRINE);
+        Entity.remove(D_ENTITY_HEROBRINE);
         D_SPAWN = false;
     }
 }
@@ -500,42 +519,110 @@ function screenChangeHook(a) {
     if ("start_screen" == a) ;
 }
 
-ModPE.importScript = function(a, b) {
-    var c = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
-    c.runOnUiThread(new java.lang.Runnable({
+var checkForUpdate=false;
+var updateWindow=false; 
+var newUpdate;
+var updateMod;
+var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
+
+function checkVersion() {
+    var r  = new java.lang.Runnable() {
         run: function() {
-            var d = new java.lang.Runnable({
-                run: function() {
-                    try {
-                        var d = new java.net.URL(a);
-                        var e = d.openConnection();
-                        e.setRequestMethod("GET");
-                        e.setDoOutput(true);
-                        e.connect();
-                        e.getContentLength();
-                        var f = e.getInputStream();
-                        var g = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
-                        var h = 0;
-                        while ((h = f.read(g)) != -1) newScript += new java.lang.String(g, 0, h);
-                        var i = c.getDir("modscripts", 0);
-                        var j = new java.io.File(i, b);
-                        var k = new java.io.PrintWriter(j);
-                        k.write(newScript);
-                        k.flush();
-                        k.close();
+            try {
+                var urls= new java.net.URL("https://dl.dropboxusercontent.com/s/33icksqw7c6dheb/version.txt?dl=0");
+                var check = urls.openConnection();
+                check.setRequestMethod("GET");
+                check.setDoOutput(true);
+                check.connect();
+                check.getContentLength();
+                var script = check.getInputStream();
+                var typeb = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
+                var byteCount = 0; 
+                var checkedVersion;
+                while((byteCount = script.read(typeb)) != -1) { 
+                    checkedVersion = new java.lang.String(typeb, 0, byteCount);               
+                }
+                newUpdate = checkedVersion;
+                if(version+"\n" != checkedVersion) {
+                    clientMessage("New version! " + newUpdate + ", Download the new version\n on mcpedl.com");
+                    updateWindow=true;
+                }
+                else if(version+"\n"==checkedVersion){
+                clientMessage("No updates available");
+                }
+            }
+            catch(err) {
+                clientMessage("Update check failed ");
+                if(err=="JavaException: java.net.UnknownHostException: dropbox.com") {
+                                clientMessage("No internet connection.");
+                            }
+                            else {
+                                clientMessage("Error: \n"+ err);
+                            } 
+            }
+        }
+    }
+    var threadt = new java.lang.Thread(r);
+    threadt.start();
+}
+
+function updateVersion() {
+    try {
+        var upd = new android.app.AlertDialog.Builder(ctx);        
+        upd.setTitle("New version available!");
+        upd.setMessage("An update to Herobrine Mod was found!\nWould you like to update it now?\nCurrent version: " + version + "\nNew version: " + newUpdate);
+        upd.setNegativeButton("Later", new android.content.DialogInterface.OnClickListener() {
+            onClick: function(par1) {
+            dialog.dismiss(); 
+   }
+        });
+        upd.setPositiveButton("Update", new android.content.DialogInterface.OnClickListener() {
+            onClick: function(par1) {
+                var ru  = new java.lang.Runnable() {
+                    run: function() {
                         try {
-                            clientMessage(ChatColor.GOLD + "Please restart blocklauncher!");
-                            net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(j, true);
-                        } catch (l) {}
-                    } catch (l) {
-                        clientMessage("Error: Line 534: " + l);
+                            var urls = new java.net.URL("https://raw.githubusercontent.com/bagas123/Herobrine-Mod-MCPE/master/HerobrineMod.js");
+                            var check = urls.openConnection();
+                            check.setRequestMethod("GET");
+                            check.setDoOutput(true);
+                            check.connect();
+                            check.getContentLength();
+                            var script = check.getInputStream();
+                            var typeb = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
+                            var byteCount = 0;
+                            while((byteCount = script.read(typeb)) != -1) { 
+                                updateMod += new java.lang.String(typeb, 0, byteCount);               
+                            }
+                            var modpeFolder = ctx.getDir("modscripts", 0);
+                            var modpeFile = new java.io.File(modpeFolder, "HerobrineMod.js");
+                            var update = new java.io.PrintWriter(modpeFile);
+                            update.write(updateMod);
+                            update.flush();
+                            update.close();
+                             
+                            try {
+                                net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(modpeFile, false);
+                                net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(modpeFile, true);
+                                clientMessage("Downloaded and enabled!");
+                                   
+                            }
+                            catch(err) {
+                                clientMessage("Error: \n" + err);
+                            }
+                        }
+                        catch(err) {
+                            clientMessage("Error: \n" + err);
+                        }
                     }
                 }
-            });
-            var e = new java.lang.Thread(d);
-            e.start();
-        }
-    }));
-};
-
-var newScript;
+                var threadt = new java.lang.Thread(ru);
+                threadt.start();
+            }
+        });
+        var dialog = upd.create();
+        dialog.show() 
+    }
+    catch(err) {
+        clientMessage("Error: \n" + err);
+    }
+}
