@@ -1,9 +1,9 @@
 # Herobrine-Mod-MCPE
 The official Herobrine mod for MCPE.
 
-Current Version : 1.0.5a2
+Current Version : 1.0.5b6
 
-Supported Devices : All
+Supported Devices : All (Exceptions for Asus users, they might have some problems.)
 
 MC:PE Version : 0.15.6
 
