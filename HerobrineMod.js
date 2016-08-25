@@ -1,28 +1,14 @@
-/*
-This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License. 
-You are free to:
-Share - copy and redistribute the material in any medium or format.
-Adapt - remix, transform, and build upon the material for any purpose, even commercially, But with credit to the original author.
-The licensor cannot revoke these freedoms as long as you follow the license terms.
-Under the following terms:
-Attribution - You must give appropriate credit, provide a link to the license, and indicate if changes were made. 
-You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.
-ShareAlike - If you remix, transform, or build upon the material, you must ask the Owner of this mod if you can release it to the public.
-No additional restrictions - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
-*/
-
-
-var START = 0;
+var start = 0;
 
 var sF = Level.getBiomeName;
 
-ModPE.langEdit("menu.copyright", "©Mojang AB                                                 ENTITY_HEROBRINE Mod 1.0.5a3");
+ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.0.5b6");
 
-ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from ENTITY_HEROBRINE, He miGH_TIMERt kill you anytime.");
+ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from Herobrine, He might kill you anytime.");
 
-ModPE.langEdit("createWorldScreen.gameMode.creative.desc", "Unlimited resources. No damage. Flying. No achievements even if you switch to survival later. ENTITY_HEROBRINE will still annoy you.");
+ModPE.langEdit("createWorldScreen.gameMode.creative.desc", "Unlimited resources. No damage. Flying. No achievements even if you switch to survival later. Herobrine will still annoy you.");
 
-ModPE.langEdit("progressScreen.message.building", "Building terrain and summoning" + ChatColor.RED + " ENTITY_HEROBRINE");
+ModPE.langEdit("progressScreen.message.building", "Building terrain and summoning" + ChatColor.RED + " Herobrine");
 
 ModPE.setItem(324, "skull_skeleton", 0, "rooD nedooW");
 
@@ -44,7 +30,7 @@ var sound3 = new android.media.MediaPlayer();
 
 var start = true;
 
-var S_RECHECKER = -1;
+var unstuck = -1;
 
 var chicken = [];
 
@@ -59,12 +45,6 @@ var wolf = [];
 var villager = [];
 
 var mushroom = [];
-
-var POS_X = getPlayerX()
-
-var POS_Y = getPlayerY()
-
-var POS_Z = getPlayerZ()
 
 Name = "mp_username";
 
@@ -88,13 +68,13 @@ ModPE.overrideTexture("images/herobrine.png", "https://dl.dropboxusercontent.com
 
 ModPE.overrideTexture("images/sherobrine.png", "https://dl.dropboxusercontent.com/s/lbwlmb2wbju7b7e/herobrine.png?dl=0");
 
-var HTIME_CHECK;
+var alea;
 
-var TIMER_TRUE;
+var time;
 
-var ENTITY_HEROBRINE;
+var Herobrine;
 
-var SPAWNED_CHECK = 0;
+var spawned = 0;
 
 var pitch;
 
@@ -106,59 +86,28 @@ var orY;
 
 var win = false;
 
-var THROW_TIMER;
+var ebrine=0;
 
-var ENTITY_HEROBRINE_POS1 = Entity.getX(ENTITY_HEROBRINE);
+var bbrine;
 
-var ENTITY_HEROBRINE_POS2 = Entity.getY(ENTITY_HEROBRINE);
-
-var ENTITY_HEROBRINE_POS3 = Entity.getZ(ENTITY_HEROBRINE);
-
-ModPE.serverScript = function(a) {
-    com.mojang.minecraftpe.MainActivity.currentMainActivity.get().runOnUiThread(new java.lang.Runnable({
-        run: function() {
-            net.zhuoweizhang.mcpelauncher.ScriptManager.isRemote = true;
-        }
-    }));
-    if (a) Server.sendChat("BlockLauncher, enable scripts, please and thank you");
-};
-
-var a = false;
-
-ModPE.serverScript(true);
+var wintimer;
 
 function newLevel() {
-    var a = Server.getAllPlayers();
-    for (var b in a) {
-        clientMessage("Succesfully loaded Herobrine Mod");
-        clientMessage("Version : " + version);
-        checkVersion()
-        if(updateWindow) {
-        ctx.runOnUiThread(new java.lang.Runnable({
-            run: function() {
-                try {
-                    updateVersion();
-                }
-                catch(err) {
-                    clientMessage("Error: \n" + err);
-                }
-            }
-        }));
-        updateWindow=false;
-    }
-}
+    clientMessage("Succesfully loaded Herobrine Mod");
+    clientMessage("Version : " + version);
+    clientMessage("Follow @BagasMC_ on twitter to report bugs, and to know about known bugs! Honestly, this is really important!")
+    checkVersion()
 }
 
-var version = "1.0.5a3";
+var version = "1.0.5b6";
 
 var preventOverridingTick = 400;
 
 function useItem(a, b, c, d, e, f) {
-    var g = Server.getAllPlayers();
-    for (var h in g) if (324 == d) clientMessage("uoy rof srood oN");
+    if (324 == d) clientMessage("uoy rof srood oN");
 }
 
-var TIME_Z = 15e3;
+var timez = 15e3;
 
 ModPE.playSoundFromFile = function(a) {
     try {
@@ -186,194 +135,272 @@ ModPE.playSoundFromFile = function(a) {
     }
 };
 
-var minplus = null;
-
+var minplus=null;
 function modTick() {
-    var a = Server.getAllPlayers();
-    for (var b in a) {
-        TIME_Z--;
-        HTIME_CHECK = Math.floor(800 * Math.random() + 1);
-        GH_TIMER = Math.floor(2 * Math.random() + 1);
-        GH_TM = Math.floor(2 * Math.random() + 1);
-        G_SH = Math.floor(25 * Math.random() + 1);
-        GS_MH = Math.floor(2 * Math.random() + 1);
-        time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
-        if (0 == SPAWNED_CHECK) {
-            if (1 == HTIME_CHECK && 0 == TIMER_TRUE && false == D_SPAWN) {
-                pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
-                yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
-                orX = Math.sin(pitch) * Math.cos(yaw);
-                orZ = Math.sin(pitch) * Math.sin(yaw);
-                if (1 == GH_TIMER && false == SPAWNED_CHECK) {
-                    if (1 == GH_TM) {
-                        ENTITY_HEROBRINE = Level.spawnMob(POS_X + G_SH, POS_Y, POS_Z + G_SH, EntityType.GHAST, "3herobrine.png");
-                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
-                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
-                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-                        var c = Math.floor(11 * Math.random() + 1);
-                        ModPE.playSoundFromFile("herobrine" + c + ".ogg");
-                        SPAWNED_CHECK = 1;
-                    }
-                    if (2 == GH_TM) {
-                        ENTITY_HEROBRINE = Level.spawnMob(POS_X - G_SH, POS_Y, POS_Z - G_SH, EntityType.GHAST, "3herobrine.png");
-                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
-                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
-                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-                        var c = Math.floor(11 * Math.random() + 1);
-                        ModPE.playSoundFromFile("herobrine" + c + ".ogg");
-                        SPAWNED_CHECK = 1;
-                    }
-                } else if (2 == GH_TIMER && false == SPAWNED_CHECK) {
-                    if (1 == GH_TM) {
-                        ENTITY_HEROBRINE = Level.spawnMob(POS_X + G_SH, POS_Y, POS_Z + G_SH, EntityType.SILVERFISH, "3herobrine.png");
-                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
-                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
-                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-                        var c = Math.floor(11 * Math.random() + 1);
-                        ModPE.playSoundFromFile("herobrine" + c + ".ogg");
-                        for (b = 0; b < cow.length; b++) Entity.setTarget(cow[b], ENTITY_HEROBRINE);
-                        if (1 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, true); else if (2 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, false);
-                        SPAWNED_CHECK = 1;
-                    }
-                    if (2 == GH_TM) {
-                        ENTITY_HEROBRINE = Level.spawnMob(POS_X - G_SH, POS_Y, POS_Z - G_SH, EntityType.SILVERFISH, "3herobrine.png");
-                        Entity.setRenderType(ENTITY_HEROBRINE, 3);
-                        Entity.setHealth(ENTITY_HEROBRINE, 999999);
-                        Entity.addEffect(ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-                        var c = Math.floor(11 * Math.random() + 1);
-                        ModPE.playSoundFromFile("herobrine" + c + ".ogg");
-                        for (b = 0; b < cow.length; b++) Entity.setTarget(cow[b], ENTITY_HEROBRINE);
-                        SPAWNED_CHECK = 1;
-                        if (1 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, true); else if (2 == GS_MH) Entity.setImmobile(ENTITY_HEROBRINE, false);
-                    }
-                }
-                S_RECHECKER = 20;
-            }
-            if (S_RECHECKER >= 1) {
-                S_RECHECKER -= 1;
-                if (0 == getTile(ENTITY_HEROBRINE_POS1, ENTITY_HEROBRINE_POS2, ENTITY_HEROBRINE_POS3)) ; else Entity.setPosition(ENTITY_HEROBRINE, ENTITY_HEROBRINE_POS1, ENTITY_HEROBRINE_POS2 + 1, ENTITY_HEROBRINE_POS3);
-            }
-            if (0 == S_RECHECKER) S_RECHECKER = -1;
-            var d;
-            d = Math.floor(200 * Math.random() + 1);
-            if (1 == d) {
-                pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
-                yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
-                orX = Math.sin(pitch) * Math.cos(yaw);
-                orZ = Math.sin(pitch) * Math.sin(yaw);
-                Level.spawnMob(POS_X - 10 * orX, POS_Y, POS_Z - 20 * orZ, EntityType.LIGHTNING_BOLT);
-            }
-        }
-        if (0 == preventOverridingTick) {
-            Entity.remove(ENTITY_HEROBRINE);
-            ModPE.playSoundFromFile("disappear.ogg");
-            preventOverridingTick = 400;
-            SPAWNED_CHECK = 0;
-        }
-        if (1 == SPAWNED_CHECK) {
-            preventOverridingTick--;
-            if (compareDistance(ENTITY_HEROBRINE, 15)) {
-                Entity.remove(ENTITY_HEROBRINE);
-                ModPE.playSoundFromFile("disappear.ogg");
-                preventOverridingTick = 400;
-                SPAWNED_CHECK = 0;
-            }
-        }
-        if (0 == TIME_Z) {
-            TIME_Z = 15e3;
-            ENTITY_HEROBRINE = Level.spawnMob(POS_X, POS_Y, POS_Z, 32, "3herobrine.png");
-            Entity.setRenderType(ENTITY_HEROBRINE, 3);
-            Entity.setHealth(ENTITY_HEROBRINE, 20);
-            clientMessage(ChatColor.RED + "Where is your god now?");
-            Level.spawnMob(POS_X, POS_Y, POS_Z, 34);
-            Level.spawnMob(POS_X, POS_Y, POS_Z, 34);
-        }
-        if (14e3 == TIME_Z) {
-            clientMessage(ChatColor.RED + "BURN BABY BURN!!!");
-            var e = hrandom(0, 256);
-            var f = hrandom(0, 256);
-            ModPE.playSoundFromFile("defeat.ogg");
-            setTile(Player.getX()+7,Player.getY()-1,Player.getZ()+1,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()-1,51),setTile(Player.getX()+7,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ(),51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()+1,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()-1,51),setTile(Player.getX()-7,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()+2,51),setTile(Player.getX()+6,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()-6,Player.getY()-1,Player.getZ()-2,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-4,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+4,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-4,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+4,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()+5,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()-3,51),setTile(Player.getX()-5,Player.getY()-1,Player.getZ()+3,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+4,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-4,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()+3,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()-5,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()+5,51),setTile(Player.getX()-3,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()+2,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()-6,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()+6,51),setTile(Player.getX()-2,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()+1,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()+1,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX()-1,Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX()-1,Player.getY()-1,Player.getZ()+7,51),setTile(Player.getX(),Player.getY()-1,Player.getZ()-7,51),setTile(Player.getX(),Player.getY()-1,Player.getZ()+7,51);
-        }
-        if (Player.getPointedEntity() == ENTITY_HEROBRINE) {
-            Entity.remove(ENTITY_HEROBRINE);
-            SPAWNED_CHECK = 0;
-            preventOverridingTick = 400;
-        }
-        THROW_TIMER = Math.floor(1300 * Math.random() + 1);
-        if (10 == THROW_TIMER) if (0 == SPAWNED_CHECK && 0 == TIMER_TRUE && false == D_SPAWN) {
+    timez--;
+    alea = Math.floor(400 * Math.random() + 1);
+    gh = Math.floor(2 * Math.random() + 1);
+    ghm = Math.floor(2 * Math.random() + 1);
+    gsh = Math.floor(30 * Math.random() + 1);
+    gsmh = Math.floor(2 * Math.random() + 1);
+    time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
+    if (0 == spawned) {
+        if (1 == alea && 0 == truetim && dspawn == false && ebrine == 0) {
             pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
             yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
             orX = Math.sin(pitch) * Math.cos(yaw);
             orZ = Math.sin(pitch) * Math.sin(yaw);
-            THROW_BRINE = Level.spawnMob(POS_X - 1 * orX, POS_Y, POS_Z - 1 * orZ, EntityType.ZOMBIE, "herobrine.png");
-            Entity.setRenderType(THROW_BRINE, 3);
-            Entity.setHealth(THROW_BRINE, 10);
-            Entity.setVelY(getPlayerEnt(), 1.5);
-            clientMessage(ChatColor.RED + "WHERE IS NOTCH?!?!");
-            Entity.addEffect(THROW_BRINE, MobEffect.fireResistance, 1e4, 9999, true, false);
-            Entity.addEffect(THROW_BRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-            TIMER_TRUE = 1;
-        } else if (1 == SPAWNED_CHECK || true == D_SPAWN && 10 == THROW_TIMER) ;
-        if (1 == TIMER_TRUE) TIMER_END--;
-        if (1 == TIMER_TRUE && 0 == TIMER_END) {
-            TIMER_END = 40;
-            TIMER_TRUE = 0;
-            Entity.remove(THROW_BRINE);
+            if (1 == gh && false == spawned) {
+                if(ghm == 1){
+                    Herobrine = Level.spawnMob(getPlayerX() + gsh, getPlayerY(), getPlayerZ() + gsh, EntityType.GHAST, "3herobrine.png");
+                Entity.setRenderType(Herobrine, 3);
+                Entity.setHealth(Herobrine, 999999);
+                Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                var a = Math.floor(11 * Math.random() + 1);
+                ModPE.playSoundFromFile("herobrine" + a + ".ogg");
+                if(gsmh==1){
+                    Entity.setImmobile(Herobrine,true)
+                    } else if(gsmh==2){
+                        Entity.setImmobile(Herobrine,false)
+                        }
+                spawned = 1;
+                    }
+                    if(ghm == 2){
+                        Herobrine = Level.spawnMob(getPlayerX() - gsh, getPlayerY(), getPlayerZ() - gsh, EntityType.GHAST, "3herobrine.png");
+                Entity.setRenderType(Herobrine, 3);
+                Entity.setHealth(Herobrine, 999999);
+                Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                var a = Math.floor(11 * Math.random() + 1);
+                ModPE.playSoundFromFile("herobrine" + a + ".ogg");
+                if(gsmh==1){
+                    Entity.setImmobile(Herobrine,true)
+                    } else if(gsmh==2){
+                        Entity.setImmobile(Herobrine,false)
+                        }
+                spawned = 1;
+                    
+                        }
+            } else if (2 == gh && false == spawned) {
+                if(ghm==1){
+                Herobrine = Level.spawnMob(getPlayerX() + gsh, getPlayerY(), getPlayerZ() + gsh, EntityType.SILVERFISH, "3herobrine.png");
+                Entity.setRenderType(Herobrine, 3);
+                Entity.setHealth(Herobrine, 999999);
+                Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                var a = Math.floor(11 * Math.random() + 1);
+                ModPE.playSoundFromFile("herobrine" + a + ".ogg");
+                for (i = 0; i < cow.length; i++) Entity.setTarget(cow[i], Herobrine);
+                if(gsmh==1){
+                    Entity.setImmobile(Herobrine,true)
+                    } else if(gsmh==2){
+                        Entity.setImmobile(Herobrine,false)
+                        }
+                spawned = 1;
+            }
+            if(ghm==2){
+                Herobrine = Level.spawnMob(getPlayerX() - gsh, getPlayerY(), getPlayerZ() - gsh, EntityType.SILVERFISH, "3herobrine.png");
+                Entity.setRenderType(Herobrine, 3);
+                Entity.setHealth(Herobrine, 999999);
+                Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                var a = Math.floor(11 * Math.random() + 1);
+                ModPE.playSoundFromFile("herobrine" + a + ".ogg");
+                for (i = 0; i < cow.length; i++) Entity.setTarget(cow[i], Herobrine);
+                spawned = 1;
+                if(gsmh==1){
+                    Entity.setImmobile(Herobrine,true)
+                    } else if(gsmh==2){
+                        Entity.setImmobile(Herobrine,false)
+                        }
+                }
+                }
+            unstuck = 20;
         }
-        time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
-        if (time < 19200 / 2) ; else {
-            if (26 == getTile(POS_X, POS_Y, POS_Z) && false == COOL_DOWN_D && 0 == SPAWNED_CHECK && 0 == TIMER_TRUE) {
-                px = POS_X;
-                py = POS_Y;
-                pz = POS_Z;
-                DREAM_START = true;
-            }
-            if (true == DREAM_START) {
-                P_TICK++;
-                if (60 == P_TICK) {
-                    P_TICK = 0;
-                    DREAM_END = true;
-                    DREAM_START = false;
-                }
-            }
-            if (true == DREAM_END && false == COOL_DOWN_D) {
-                DREAM_ENDt--;
-                if (112 == DREAM_ENDt) {
-                    D_ENTITY_HEROBRINE = Level.spawnMob(POS_X, POS_Y, POS_Z, EntityType.SILVERFISH, "3herobrine.png");
-                    Entity.setRenderType(D_ENTITY_HEROBRINE, 3);
-                    Entity.setHealth(D_ENTITY_HEROBRINE, 1);
-                    Entity.addEffect(D_ENTITY_HEROBRINE, MobEffect.movementSpeed, 1e4, 5, true, false);
-                    ModPE.playSoundFromFile("ENTITY_HEROBRINE_decoy.ogg");
-                    D_SPAWN = true;
-                }
-                if (true == D_SPAWN) {
-                    COOL_DOWN_D = true;
-                    DREAM_END = false;
-                    DREAM_ENDt = 120;
-                }
-                if (true == COOL_DOWN_D) C_DOWN--;
-                if (0 == C_DOWN) {
-                    COOL_DOWN_D = false;
-                    C_DOWN = 200;
-                }
-            }
+        if (unstuck >= 1) {
+            unstuck -= 1;
+            if (0 == getTile(Entity.getX(Herobrine), Entity.getY(Herobrine), Entity.getZ(Herobrine))) ; else Entity.setPosition(Herobrine, Entity.getX(Herobrine), Entity.getY(Herobrine) + 1, Entity.getZ(Herobrine));
+        }
+        if (0 == unstuck) unstuck = -1;
+        var b;
+        b = Math.floor(200 * Math.random() + 1);
+        if (1 == b) {
+            pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
+            yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
+            orX = Math.sin(pitch) * Math.cos(yaw);
+            orZ = Math.sin(pitch) * Math.sin(yaw);
+            Level.spawnMob(getPlayerX() - 10 * orX, getPlayerY(), getPlayerZ() - 20 * orZ, EntityType.LIGHTNING_BOLT);
         }
     }
+    if (0 == preventOverridingTick) {
+        Entity.remove(Herobrine);
+        ModPE.playSoundFromFile("disappear.ogg");
+        preventOverridingTick = 400;
+        spawned = 0;
+    }
+    if (1 == spawned) {
+        preventOverridingTick--;
+        if (compareDistance(Herobrine, 15)) {
+            Entity.remove(Herobrine);
+            ModPE.playSoundFromFile("disappear.ogg");
+            preventOverridingTick = 400;
+            spawned = 0;
+        }
+    }
+    if (0 == timez) {
+        timez = 15e3;
+        Herobrine = Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), 32, "3herobrine.png");
+        Entity.setRenderType(Herobrine, 3);
+        Entity.setHealth(Herobrine, 20);
+        clientMessage("�4Where is your god now?");
+        Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), 34);
+        Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), 34);
+    }
+    if (14e3 == timez) {
+        clientMessage("�4BURN BABY BURN!!!");
+        var c = hrandom(0, 256);
+        var d = hrandom(0, 256);
+        ModPE.playSoundFromFile("defeat.ogg");
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() + 1, 51);
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() - 1, 51);
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ(), 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() + 1, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() - 1, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 4, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 4, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 4, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 4, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX() + 1, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() + 1, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX() - 1, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() - 1, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX(), Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX(), Player.getY() - 1, Player.getZ() + 7, 51);
+    }
+    if (Player.getPointedEntity() == Herobrine) {
+        Entity.remove(Herobrine);
+        spawned = 0;
+        preventOverridingTick = 400;
+    }
+    wintimer = Math.floor(1300 * Math.random() + 1);
+    if (10 == wintimer) if (0 == spawned && 0 == truetim && dspawn==false) {
+        pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
+        yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
+        orX = Math.sin(pitch) * Math.cos(yaw);
+        orZ = Math.sin(pitch) * Math.sin(yaw);
+        winbrine = Level.spawnMob(getPlayerX() - 1 * orX, getPlayerY(), getPlayerZ() - 1 * orZ, EntityType.ZOMBIE, "herobrine.png");
+        Entity.setRenderType(winbrine, 3);
+        Entity.setHealth(winbrine, 10);
+        Entity.setVelY(getPlayerEnt(), 1.5);
+        clientMessage(ChatColor.RED + "WHERE IS NOTCH?!?!");
+        Entity.addEffect(winbrine, MobEffect.fireResistance, 1e4, 9999, true, false);
+        Entity.addEffect(winbrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+        truetim = 1;
+    } else if (1 == spawned ||  dspawn == true && wintimer == 10) ;
+    if (1 == truetim) endtimer--;
+    if (1 == truetim && 0 == endtimer) {
+        endtimer = 40;
+        truetim = 0;
+        Entity.remove(winbrine);
+    }
+    time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200); //The script below this comment is really hardcoded, dont touch!
+    if (time < 19200 / 2) ; else {
+        if (26 == getTile(getPlayerX(), getPlayerY(), getPlayerZ()) && cooldreamdown == false && spawned == 0 && truetim == 0) {
+            px = getPlayerX();
+            py = getPlayerY();
+            pz = getPlayerZ();
+            sleepStart = true;
+        }
+        if (true == sleepStart) {
+            ptick++;
+            if (60 == ptick) {
+                ptick = 0;
+                wakeup = true;
+                sleepStart = false;
+            }
+        }
+        if (true == wakeup && cooldreamdown == false) {
+            wakeupt--;
+            if (112 == wakeupt) {
+                dHerobrine = Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), EntityType.SILVERFISH, "3herobrine.png");
+                Entity.setRenderType(dHerobrine, 3);
+                Entity.setHealth(dHerobrine, 1);
+                Entity.addEffect(dHerobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                ModPE.playSoundFromFile("herobrine_decoy.ogg");
+                dspawn=true;
+            }
+            if(dspawn==true) {
+                cooldreamdown = true;
+                
+                wakeup = false;
+                wakeupt = 120;
+        }
+        if(cooldreamdown==true){
+           cooldown--;
 }
-
-function procCmd(a) {
-    var b = a.split(" ");
-    var c = b[0];
-    switch (c) {
-      case "download":
-        ModPE.importScript("https://dl.dropboxusercontent.com/s/senrlknvweka08d/ENTITY_HEROBRINEMod.js?dl=0", "ENTITY_HEROBRINEMod.js");
+if(cooldown==0){
+cooldreamdown=false;
+cooldown=200;
+} 
     }
 }
+}
 
-var DREAM_START = false;
+function procCmd(c) {
+   var m = c.split(' ');
+   var command = m[0];
+   switch(command) {
+           case 'download': {
+  ModPE.importScript("https://dl.dropboxusercontent.com/s/senrlknvweka08d/HerobrineMod.js?dl=0", "HerobrineMod.js")
+clientMessage(ChatColor.GOLD+' Please restart blocklauncher!');
+break;}
+}
+}
 
-var P_TICK = 0;
+var sleepStart = false;
+
+var ptick = 0;
 
 var px = null;
 
@@ -383,43 +410,38 @@ var pz = null;
 
 var dmg = 5;
 
-var D_SPAWN = false;
+var dspawn = false;
 
-var DREAM_END = false;
+var wakeup = false;
 
-var COOL_DOWN_D = false;
+var cooldreamdown = false;
 
-var C_DOWN = 200;
+var cooldown = 200;
 
-var DREAM_ENDt = 120;
+var wakeupt = 120;
 
-var THROW_BRINE;
+var winbrine;
 
-var TIMER_END = 40;
+var endtimer = 40;
 
-var D_ENTITY_HEROBRINE;
+var dHerobrine;
 
-var LAVA_BLOCK;
+var lava;
 
-var TIMER_TRUE = 0;
+var truetim = 0;
 
 function attackHook(a, b) {
-    var c = Server.getAllPlayers();
-    for (var d in c) if (a == ENTITY_HEROBRINE) Level.addParticle(ParticleType.flame, Entity.getX(a), Entity.getY(a) + 1, Entity.getZ(a), 0, 0, 0, 20);
+    if (a == Herobrine) Level.addParticle(ParticleType.flame, Entity.getX(a), Entity.getY(a) + 1, Entity.getZ(a), 0, 0, 0, 20);
 }
 
 function hrandom(a, b) {
-    var c = Server.getAllPlayers();
-    for (var d in c) return Math.floor(Math.random() * b + a);
+    return Math.floor(Math.random() * b + a);
 }
 
 function Vector3D(a, b, c) {
-    var d = Server.getAllPlayers();
-    for (var e in d) {
-        this.x = a;
-        this.y = b;
-        this.z = c;
-    }
+    this.x = a;
+    this.y = b;
+    this.z = c;
 }
 
 function lookDir() {
@@ -433,8 +455,7 @@ function lookDir() {
 }
 
 function compareDistance(a, b) {
-    var c = Server.getAllPlayers();
-    for (var d in c) return Math.abs(Entity.getX(a) - Player.getX()) < b && Math.abs(Entity.getY(a) - Player.getY()) < b && Math.abs(Entity.getZ(a) - Player.getZ()) < b;
+    return Math.abs(Entity.getX(a) - Player.getX()) < b && Math.abs(Entity.getY(a) - Player.getY()) < b && Math.abs(Entity.getZ(a) - Player.getZ()) < b;
 }
 
 function deathHook(a, b) {
@@ -442,21 +463,48 @@ function deathHook(a, b) {
         Entity.remove(b);
         preventOverridingTick = 400;
         Level.spawnMob(Entity.getX(b), Entity.getY(b), Entity.getZ(b), 36);
-        Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2),Level.addParticle(ParticleType.LAVA_BLOCK,Entity.getX(b)-.2,Entity.getY(b)+1,Entity.getZ(b),0,0,0,2);
-        SPAWNED_CHECK = 0;
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        Level.addParticle(ParticleType.lava, Entity.getX(b) - .2, Entity.getY(b) + 1, Entity.getZ(b), 0, 0, 0, 2);
+        spawned = 0;
     }
-    if ("herobrine.png" == Entity.getMobSkin(b) && b == THROW_BRINE) {
+    if ("herobrine.png" == Entity.getMobSkin(b) && b == winbrine) {
         Entity.remove(b);
-        TIMER_TRUE = 0;
+        truetim = 0;
     }
-    if (b == getPlayerEnt() && 1 == TIMER_TRUE) {
-        Entity.remove(THROW_BRINE);
-        TIMER_TRUE = 0;
+    if (b == getPlayerEnt() && 1 == truetim) {
+        Entity.remove(winbrine);
+        truetim = 0;
     }
-    if (b == getPlayerEnt() && true == D_SPAWN) {
-        Entity.remove(D_ENTITY_HEROBRINE);
-        D_SPAWN = false;
-    }
+    if (b == getPlayerEnt() && true == dspawn) {
+    Entity.remove(dHerobrine)
+    dspawn=false;
+}
+if (b == getPlayerEnt() && 1 == ebrine) {
+    Entity.remove(bbrine)
+    ebrine=0;
+}
 }
 
 function getSurface(a, b) {
@@ -468,8 +516,39 @@ function getSurface(a, b) {
     return c;
 }
 
+function addFHerobrineRenderType(a) {
+    var b = a.getModel();
+    var c = 0;
+    var d = b.getPart("head");
+    var e = b.getPart("body");
+    var f = b.getPart("rightArm").clear();
+    var g = b.getPart("leftArm").clear();
+    e.setTextureOffset(16, 16, true);
+    e.addBox(-8, 0, -2, 4, 4, 4, c);
+    e.addBox(-9, 1, -3, 4, 4, 4, c);
+    e.addBox(-10, 2, -6, 4, 4, 4, c);
+    e.addBox(-11, 3, -7, 4, 4, 4, c);
+    e.addBox(-11, 3, -15, 4, 4, 8, c);
+    e.addBox(4, 0, -2, 4, 4, 4, c);
+    e.addBox(5, 1, -3, 4, 4, 4, c);
+    e.addBox(6, 2, -6, 4, 4, 4, c);
+    e.addBox(7, 3, -7, 4, 4, 4, c);
+    e.addBox(7, 3, -15, 4, 4, 8, c);
+    e.setTextureOffset(0, 0, true);
+    e.addBox(-13, -4, -16, 8, 8, 8, c);
+    e.addBox(5, -4, -16, 8, 8, 8, c);
+    f.clear();
+    f.setTextureOffset(41, 16, true);
+    g.clear();
+    g.setTextureOffset(41, 16, true);
+}
+
+var FHerobrineRenderType = Renderer.createHumanoidRenderer();
+
+addFHerobrineRenderType(FHerobrineRenderType);
+
 function entityHurtHook(a, b, c) {
-    if (b == getPlayerEnt() && a == THROW_BRINE) Entity.setVelY(getPlayerEnt(), 1.5);
+    if (b == getPlayerEnt() && a == winbrine) Entity.setVelY(getPlayerEnt(), 1.5);
 }
 
 function entityRemovedHook(a) {
@@ -504,7 +583,7 @@ function entityRemovedHook(a) {
 }
 
 function entityAddedHook(a) {
-    if (1 == SPAWNED_CHECK) {
+    if (1 == spawned) {
         if (10 == Entity.getEntityTypeId(a)) chicken.push(a);
         if (11 == Entity.getEntityTypeId(a)) cow.push(a);
         if (12 == Entity.getEntityTypeId(a)) pig.push(a);
@@ -518,6 +597,47 @@ function entityAddedHook(a) {
 function screenChangeHook(a) {
     if ("start_screen" == a) ;
 }
+
+ModPE.importScript = function(scriptURL, scriptName) {
+	var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
+	ctx.runOnUiThread(new java.lang.Runnable({ run: function() {
+		var ru  = new java.lang.Runnable({ run: function() {
+			try {
+				var scriptUrl = new java.net.URL(scriptURL);
+				var connection = scriptUrl.openConnection();
+				connection.setRequestMethod("GET");
+				connection.setDoOutput(true);
+				connection.connect();
+				connection.getContentLength();
+				var input = connection.getInputStream();
+				var contents = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
+				var bytesRead = 0;
+				while((bytesRead = input.read(contents)) != -1) { 
+					newScript += new java.lang.String(contents, 0, bytesRead);			   
+				}
+				var patchesFolder = ctx.getDir("modscripts", 0);
+				var scriptFile = new java.io.File(patchesFolder, scriptName);
+				var printWriter = new java.io.PrintWriter(scriptFile);
+				printWriter.write(newScript);
+				printWriter.flush();
+				printWriter.close();
+				try {
+					
+					net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(scriptFile, true);
+				} catch(e) {
+					//clientMessage("Error: Line 534: " + e);
+				}
+			} catch(e) {
+				clientMessage("Error: Line 534: " + e);
+			}
+		}});
+		
+		}
+	}));
+}
+
+var newScript;
+
 
 var checkForUpdate=false;
 var updateWindow=false; 
