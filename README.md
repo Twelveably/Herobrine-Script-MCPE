@@ -43,12 +43,23 @@ Herobrine is one of the oldest myths of Minecraft. Even though it has been prove
 **You may use these for making external add-ons for the Herobrine mod.**
 **You can only use the API _ONLY_ when the Herobrine mod is _ACTIVE_.**
 
-'''
+```
 ModPEHerobrine.spawnHerobrine(x,y,z,class,type,health)
-'''
+```
+Use this for spawning Herobrine, you can only use it once.
+
+```
 ModPEHerobrine.playSound(par1String)
-'''
+```
+Use this for playing sounds, 'Sounds Library' below.
+
+```
 ModPEHerobrine.importTexture(par1String, par2String)
-'''
+```
+
+Use this for importing texture, I know this is already in Blocklauncher. But hey! This is more cool!
+
+```
 ModPEHerobrine.msg(str)
-'''
+```
+For Herobrine's chat with Herobrine prefix.
