@@ -1,4 +1,6 @@
 var fBrine;
+var class=null;
+var type=null;
 
 var ModPEHerobrine = {
 	spawnHerobrine: function(x,y,z,class,type,health) {
@@ -13,6 +15,12 @@ var ModPEHerobrine = {
                 ModPE.overrideTexture(par1String, par2String);
                 },
                 msg: function(str) {
-                    clientMessage(str)
+                    clientMessage("<Herobrine> : " + str)
                     }
             }
+
+/*ModPEHerobrine.spawnHerobrine(x,y,z,class,type,health)
+  ModPEHerobrine.playSound(par1String)
+  ModPEHerobrine.importTexture(par1String, par2String)
+  ModPEHerobrine.msg(str)
+*\
