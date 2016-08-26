@@ -35,3 +35,20 @@ Make sure you’ve got an Internet connection while using the mod. It’s requir
 #Prolog
 
 Herobrine is one of the oldest myths of Minecraft. Even though it has been proven that Herobrine doesn’t actually exist anywhere in the code of the game there are still conspiracy theorists who insist on his existence. The Herobrine Mod lets you experience what it would be like if Herobrine was real. He will spawn in the world and haunt you for all infinity.
+
+---------------
+
+#API Library
+
+**You may use these for making external add-ons for the Herobrine mod.**
+**You can only use the API _ONLY_ when the Herobrine mod is _ACTIVE_.**
+
+'''
+ModPEHerobrine.spawnHerobrine(x,y,z,class,type,health)
+'''
+ModPEHerobrine.playSound(par1String)
+'''
+ModPEHerobrine.importTexture(par1String, par2String)
+'''
+ModPEHerobrine.msg(str)
+'''
