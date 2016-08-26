@@ -9,7 +9,7 @@ ModPE.setFoodItem(2000,"potion_bottle_drinkable",3,1,"Potion of Repell" + ChatCo
 Item.addCraftRecipe(2000,1,0,[49,1,0]);
 Player.addItemCreativeInv(2000,1, 0);
 
-ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.0.5b7");
+ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.1.0-alpha");
 
 ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from Herobrine, He might kill you anytime.");
 
