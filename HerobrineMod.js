@@ -2,7 +2,14 @@ var start = 0;
 
 var sF = Level.getBiomeName;
 
-ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.0.5b6");
+var fBrine;
+
+ModPE.setFoodItem(2000,"potion_bottle_drinkable",3,1,"Potion of Repell" + ChatColor.GRAY + 
+                                                     "\n   Repell");
+Item.addCraftRecipe(2000,1,0,[49,1,0]);
+Player.addItemCreativeInv(2000,1, 0);
+
+ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.0.5b7");
 
 ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from Herobrine, He might kill you anytime.");
 
@@ -94,12 +101,11 @@ var wintimer;
 
 function newLevel() {
     clientMessage("Succesfully loaded Herobrine Mod");
-    clientMessage("Version : " + version);
     clientMessage("Follow @BagasMC_ on twitter to report bugs, and to know about known bugs! Honestly, this is really important!")
     checkVersion()
 }
 
-var version = "1.0.5b6";
+var version = 1.0.5b7;
 
 var preventOverridingTick = 400;
 
@@ -144,7 +150,8 @@ function modTick() {
     gsh = Math.floor(30 * Math.random() + 1);
     gsmh = Math.floor(2 * Math.random() + 1);
     time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
-    if (0 == spawned) {
+    
+    if (0 == spawned && repell == false) {
         if (1 == alea && 0 == truetim && dspawn == false && ebrine == 0) {
             pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
             yaw = (Entity.getYaw(getPlayerEnt()) + 90) * Math.PI / 180;
@@ -344,48 +351,68 @@ function modTick() {
         truetim = 0;
         Entity.remove(winbrine);
     }
+    
+    
     time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200); //The script below this comment is really hardcoded, dont touch!
     if (time < 19200 / 2) ; else {
         if (26 == getTile(getPlayerX(), getPlayerY(), getPlayerZ()) && cooldreamdown == false && spawned == 0 && truetim == 0) {
-            px = getPlayerX();
-            py = getPlayerY();
-            pz = getPlayerZ();
-            sleepStart = true;
-        }
-        if (true == sleepStart) {
-            ptick++;
-            if (60 == ptick) {
-                ptick = 0;
-                wakeup = true;
-                sleepStart = false;
-            }
-        }
-        if (true == wakeup && cooldreamdown == false) {
-            wakeupt--;
-            if (112 == wakeupt) {
-                dHerobrine = Level.spawnMob(getPlayerX(), getPlayerY(), getPlayerZ(), EntityType.SILVERFISH, "3herobrine.png");
-                Entity.setRenderType(dHerobrine, 3);
-                Entity.setHealth(dHerobrine, 1);
-                Entity.addEffect(dHerobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
-                ModPE.playSoundFromFile("herobrine_decoy.ogg");
-                dspawn=true;
-            }
-            if(dspawn==true) {
-                cooldreamdown = true;
-                
-                wakeup = false;
-                wakeupt = 120;
-        }
-        if(cooldreamdown==true){
-           cooldown--;
+var dreamInput = [true, false];
+var dreamOutput = dreamInput[Math.floor(Math.random() * dreamInput.length)];
+if(dreamOutput==true){
+bedX = Player.getX();
+bedY = Player.getY();
+bedZ = Player.getZ();
+dream = true;
+var dreamTypes = [1, 2];
+var dreamTypeOutput = dreamTypes[Math.floor(Math.random() * dreamTypes.length)];
+
+if(dreamTypeOutput = 1){
+var countdown1=120
+if(countdown1>=1){
+countdown1--
 }
-if(cooldown==0){
-cooldreamdown=false;
-cooldown=200;
-} 
+else if(countdown1==0){
+Entity.setPosition(getPlayerEnt(), bedX, -10, bedZ);
+Entity.setHealth(getPlayerEnt(), 10000);
+}
+
+if(dream==true){
+var dreamCountdown = 600
+if(dreamCountdown>=1){
+dreamCountdown--
+}
+else if(dreamCountdown==0){
+dream = false;
+Entity.setPosition(getPlayerEnt(), bedX, bedY, bedZ);
+}}
     }
+}}}
+nowId = Player.getCarriedItem();
+nowAmount = Player.getCarriedItemCount();
+ModPE.showTipMessage(badTick)
+if(nowId==2000){
+	if(repell==false){
+	repell=true;
+	badTrue=true;
+	}
+	} else { badTrue=false; badTick=900; repell=false; }
+	if(badTrue==true){
+		badTick--;
+		}
+		if(badTick==0){
+			addItemInventory(2000,-1,0);
+			Level.explode(getPlayerX(),getPlayerY(),getPlayerZ(),20);
+			clientMessage(ChatColor.RED + "How dare you using a repell...")
+			repell=false;
+			badTick=900;
+			}
 }
-}
+var nowAmount;
+var nowId;
+var lastAmount;
+var lastId;
+var badTick=900;
+var badTrue=false;
 
 function procCmd(c) {
    var m = c.split(' ');
@@ -398,7 +425,9 @@ break;}
 }
 }
 
-var sleepStart = false;
+var dream = false;
+
+var repell = false;
 
 var ptick = 0;
 
@@ -734,7 +763,9 @@ function updateVersion() {
                             clientMessage("Error: \n" + err);
                         }
                     }
+                
                 }
+               
                 var threadt = new java.lang.Thread(ru);
                 threadt.start();
             }
@@ -746,3 +777,4 @@ function updateVersion() {
         clientMessage("Error: \n" + err);
     }
 }
+
