@@ -1,7 +1,7 @@
 # Herobrine-Mod-MCPE
 The official Herobrine mod for MCPE.
 
-Current Version : 1.2.0
+Current Version : 1.3.0
 
 Supported Devices : All (Exceptions for Asus users, they might have some problems.)
 
@@ -15,7 +15,8 @@ Tested & Developed on : Samsung Galaxy Tab 3 8.0
 
 ##Developers
 
-BagasMC - Texture, Mod
+BagastheBird - Texture, Mod
+Gerdus4898 - None
 
 We are currently looking for Talented Modders that are interested working on this Mod.
 
