@@ -1,7 +1,7 @@
 # Herobrine-Mod-MCPE
 The official Herobrine mod for MCPE.
 
-Current Version : 1.0.5b6
+Current Version : 1.2.0
 
 Supported Devices : All (Exceptions for Asus users, they might have some problems.)
 
@@ -13,7 +13,7 @@ Tested & Developed on : Samsung Galaxy Tab 3 8.0
 
 ---------------------------------------
 
-#Developers
+##Developers
 
 BagasMC - Texture, Mod
 
@@ -21,7 +21,7 @@ We are currently looking for Talented Modders that are interested working on thi
 
 ---------------------------------------
 
-#Installation
+##Installation
 
 1. Download and install the latest BlockLauncher beta.
 2. Install the ModPE js script.
@@ -32,13 +32,13 @@ Make sure you’ve got an Internet connection while using the mod. It’s requir
 
 ---------------------------------------
 
-#Prolog
+##Prolog
 
 Herobrine is one of the oldest myths of Minecraft. Even though it has been proven that Herobrine doesn’t actually exist anywhere in the code of the game there are still conspiracy theorists who insist on his existence. The Herobrine Mod lets you experience what it would be like if Herobrine was real. He will spawn in the world and haunt you for all infinity.
 
 ---------------
 
-#API Library
+##API Library
 
 **You may use these for making external add-ons for the Herobrine mod.**
 **You can only use the API _ONLY_ when the Herobrine mod is _ACTIVE_.**
@@ -63,3 +63,32 @@ Use this for importing texture, I know this is already in Blocklauncher. But hey
 ModPEHerobrine.msg(str)
 ```
 For Herobrine's chat with Herobrine prefix.
+
+----------------------------------------------
+
+##To-do list
+
+- [ ] Herobrine Intelligent Spawning System (H.I.S.S)
+   - [ ] Mood, feelings.
+   - [ ] Natural Behaviour
+      - [x] Burning
+         - [x] Villagers
+         - [x] Tree
+         - [x] House
+      - [x] Destroying
+         - [x] Player's building
+         - [x] Environment
+      - [x] Jumpscare
+         - [x] Player while
+            - [x] Mining
+      - [ ] Traps (Upcoming Update)
+         - [ ] Quicksand trap
+         - [ ] Lava holes
+         - [ ] Animal trap
+         - [ ] Fake villages
+   - [ ] Ability
+      - [x] Flying
+      - [x] Running
+      - [x] Fireballs
+      
+-----------------------
