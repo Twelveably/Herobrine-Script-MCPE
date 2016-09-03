@@ -1,9 +1,9 @@
 var fBrine;
-var class=null;
+var hclass=null;
 var type=null;
 
 var ModPEHerobrine = {
-	spawnHerobrine: function(x,y,z,class,type,health) {
+	spawnHerobrine: function(x,y,z,hclass,type,health) {
 		var fBrine = Level.spawnMob(x, y, z, type, "3herobrine.png");
         Entity.setRenderType(fBrine, 3);
         Entity.setHealth(fBrine, health);
