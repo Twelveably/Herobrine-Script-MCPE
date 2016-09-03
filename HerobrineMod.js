@@ -102,6 +102,7 @@ var wintimer;
 function newLevel() {
     clientMessage("Succesfully loaded Herobrine Mod");
     clientMessage("Follow @BagasMC_ on twitter to report bugs, and to know about known bugs! Honestly, this is really important!")
+    clientMessage("and follow @aahelper ! shout out for him!")
     checkVersion()
 }
 
