@@ -86,9 +86,12 @@ For Herobrine's chat with Herobrine prefix.
          - [ ] Lava holes
          - [ ] Animal trap
          - [ ] Fake villages
-   - [ ] Ability
+      - [x] Talking
+      - [x] Sounds
+   - [x] Ability
       - [x] Flying
       - [x] Running
       - [x] Fireballs
-      
+      - [x] Fire rings
+      - [x] Summon troops
 -----------------------
