@@ -1,62 +1,67 @@
+//Mod by BagasMC
+ 
+ 
 var start = 0;
-
+ 
 var sF = Level.getBiomeName;
-
+ 
 var fBrine;
-
-ModPE.setFoodItem(2000,"potion_bottle_drinkable",3,1,"Potion of Repell" + ChatColor.GRAY + 
-                                                     "\n   Repell");
+ 
+var chatHerobrine = [ChatColor.RED + "Hello there...", ChatColor.RED + "The choice none...¿?", ChatColor.RED + "plan...", ChatColor.RED + "watch your back.?¿¡", ChatColor.RED + "weird,  y0u...."];
+var chatHerobrineOutput = chatHerobrine[Math.floor(Math.random() * chatHerobrine.length)];
+ 
+ModPE.setItem(2000,"book_enchanted",0,1,"Book of Repell");
 Item.addCraftRecipe(2000,1,0,[49,1,0]);
 Player.addItemCreativeInv(2000,1, 0);
-
-ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.1.0-alpha");
-
+ 
+ModPE.langEdit("menu.copyright", "©Mojang AB                                                 Herobrine Mod 1.3.0");
+ 
 ModPE.langEdit("createWorldScreen.gameMode.survival.desc", "Limited resources, you'll need tools. You may get hurt. Watch out for Monsters, and Stay away from Herobrine, He might kill you anytime.");
-
+ 
 ModPE.langEdit("createWorldScreen.gameMode.creative.desc", "Unlimited resources. No damage. Flying. No achievements even if you switch to survival later. Herobrine will still annoy you.");
-
+ 
 ModPE.langEdit("progressScreen.message.building", "Building terrain and summoning" + ChatColor.RED + " Herobrine");
-
+ 
 ModPE.setItem(324, "skull_skeleton", 0, "rooD nedooW");
-
+ 
 Block.defineBlock(64, "rood nedooW", "missing_tile", 1, false, 0);
-
+ 
 var Card = android.os.Environment.getExternalStorageDirectory();
-
+ 
 var Dir1 = new java.io.File(Card.getAbsolutePath(), "games/");
-
+ 
 var Dir2 = new java.io.File(Dir1, "com.mojang/minecraftpe");
-
+ 
 var File = new java.io.File(Dir2, "options.txt");
-
+ 
 var sound1 = new android.media.MediaPlayer();
-
+ 
 var sound2 = new android.media.MediaPlayer();
-
+ 
 var sound3 = new android.media.MediaPlayer();
-
+ 
 var start = true;
-
+ 
 var unstuck = -1;
-
+ 
 var chicken = [];
-
+ 
 var cow = [];
-
+ 
 var pig = [];
-
+ 
 var sheep = [];
-
+ 
 var wolf = [];
-
+ 
 var villager = [];
-
+ 
 var mushroom = [];
-
+ 
 Name = "mp_username";
-
+ 
 PlayerN = getOptionAttr(Name);
-
+ 
 function getOptionAttr(a) {
     var b = new java.io.BufferedReader(new java.io.FileReader(File));
     var c, d;
@@ -66,56 +71,55 @@ function getOptionAttr(a) {
     d = i.split(":");
     return d[d.indexOf(a) + 1];
 }
-
+ 
 var countdown = false;
-
+ 
 ModPE.overrideTexture("images/3herobrine.png", "https://dl.dropboxusercontent.com/s/lbwlmb2wbju7b7e/herobrine.png?dl=0");
-
+ 
 ModPE.overrideTexture("images/herobrine.png", "https://dl.dropboxusercontent.com/s/lbwlmb2wbju7b7e/herobrine.png?dl=0");
-
+ 
 ModPE.overrideTexture("images/sherobrine.png", "https://dl.dropboxusercontent.com/s/lbwlmb2wbju7b7e/herobrine.png?dl=0");
-
+ 
 var alea;
-
+ 
 var time;
-
+ 
 var Herobrine;
-
+ 
 var spawned = 0;
-
+ 
 var pitch;
-
+ 
 var yaw;
-
+ 
 var orX;
-
+ 
 var orY;
-
+ 
 var win = false;
-
+ 
 var ebrine=0;
-
+ 
 var bbrine;
-
+ 
 var wintimer;
-
+ 
 function newLevel() {
     clientMessage("Succesfully loaded Herobrine Mod");
     clientMessage("Follow @BagasMC_ on twitter to report bugs, and to know about known bugs! Honestly, this is really important!")
-    clientMessage("and follow @aahelper ! shout out for him!")
     checkVersion()
 }
-
-var version = 1.0.5b7;
-
+ 
+var version = "1.3.0";
+ 
 var preventOverridingTick = 400;
-
+ 
 function useItem(a, b, c, d, e, f) {
     if (324 == d) clientMessage("uoy rof srood oN");
 }
-
+ 
 var timez = 15e3;
-
+ 
 ModPE.playSoundFromFile = function(a) {
     try {
         if (false == sound1.isPlaying()) {
@@ -141,7 +145,7 @@ ModPE.playSoundFromFile = function(a) {
         clientMessage("Herobrine Mod:No Sounds!");
     }
 };
-
+ 
 var minplus=null;
 function modTick() {
     timez--;
@@ -151,7 +155,7 @@ function modTick() {
     gsh = Math.floor(30 * Math.random() + 1);
     gsmh = Math.floor(2 * Math.random() + 1);
     time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200);
-    
+     
     if (0 == spawned && repell == false) {
         if (1 == alea && 0 == truetim && dspawn == false && ebrine == 0) {
             pitch = (Entity.getPitch(getPlayerEnt()) + 90) * Math.PI / 180;
@@ -166,11 +170,7 @@ function modTick() {
                 Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
                 var a = Math.floor(11 * Math.random() + 1);
                 ModPE.playSoundFromFile("herobrine" + a + ".ogg");
-                if(gsmh==1){
-                    Entity.setImmobile(Herobrine,true)
-                    } else if(gsmh==2){
-                        Entity.setImmobile(Herobrine,false)
-                        }
+                 
                 spawned = 1;
                     }
                     if(ghm == 2){
@@ -180,13 +180,9 @@ function modTick() {
                 Entity.addEffect(Herobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
                 var a = Math.floor(11 * Math.random() + 1);
                 ModPE.playSoundFromFile("herobrine" + a + ".ogg");
-                if(gsmh==1){
-                    Entity.setImmobile(Herobrine,true)
-                    } else if(gsmh==2){
-                        Entity.setImmobile(Herobrine,false)
-                        }
+                 
                 spawned = 1;
-                    
+                     
                         }
             } else if (2 == gh && false == spawned) {
                 if(ghm==1){
@@ -197,11 +193,7 @@ function modTick() {
                 var a = Math.floor(11 * Math.random() + 1);
                 ModPE.playSoundFromFile("herobrine" + a + ".ogg");
                 for (i = 0; i < cow.length; i++) Entity.setTarget(cow[i], Herobrine);
-                if(gsmh==1){
-                    Entity.setImmobile(Herobrine,true)
-                    } else if(gsmh==2){
-                        Entity.setImmobile(Herobrine,false)
-                        }
+                 
                 spawned = 1;
             }
             if(ghm==2){
@@ -213,11 +205,7 @@ function modTick() {
                 ModPE.playSoundFromFile("herobrine" + a + ".ogg");
                 for (i = 0; i < cow.length; i++) Entity.setTarget(cow[i], Herobrine);
                 spawned = 1;
-                if(gsmh==1){
-                    Entity.setImmobile(Herobrine,true)
-                    } else if(gsmh==2){
-                        Entity.setImmobile(Herobrine,false)
-                        }
+                 
                 }
                 }
             unstuck = 20;
@@ -352,8 +340,8 @@ function modTick() {
         truetim = 0;
         Entity.remove(winbrine);
     }
-    
-    
+     
+     
     time = Level.getTime() - 19200 * Math.floor(Level.getTime() / 19200); //The script below this comment is really hardcoded, dont touch!
     if (time < 19200 / 2) ; else {
         if (26 == getTile(getPlayerX(), getPlayerY(), getPlayerZ()) && cooldreamdown == false && spawned == 0 && truetim == 0) {
@@ -366,7 +354,7 @@ bedZ = Player.getZ();
 dream = true;
 var dreamTypes = [1, 2];
 var dreamTypeOutput = dreamTypes[Math.floor(Math.random() * dreamTypes.length)];
-
+ 
 if(dreamTypeOutput = 1){
 var countdown1=120
 if(countdown1>=1){
@@ -376,7 +364,7 @@ else if(countdown1==0){
 Entity.setPosition(getPlayerEnt(), bedX, -10, bedZ);
 Entity.setHealth(getPlayerEnt(), 10000);
 }
-
+ 
 if(dream==true){
 var dreamCountdown = 600
 if(dreamCountdown>=1){
@@ -390,31 +378,127 @@ Entity.setPosition(getPlayerEnt(), bedX, bedY, bedZ);
 }}}
 nowId = Player.getCarriedItem();
 nowAmount = Player.getCarriedItemCount();
-ModPE.showTipMessage(badTick)
 if(nowId==2000){
-	if(repell==false){
-	repell=true;
-	badTrue=true;
-	}
-	} else { badTrue=false; badTick=900; repell=false; }
-	if(badTrue==true){
-		badTick--;
-		}
-		if(badTick==0){
-			addItemInventory(2000,-1,0);
-			Level.explode(getPlayerX(),getPlayerY(),getPlayerZ(),20);
-			clientMessage(ChatColor.RED + "How dare you using a repell...")
-			repell=false;
-			badTick=900;
-			}
+    if(repell==false){
+    repell=true;
+    badTrue=true;
+    }
+    } else { badTrue=false; badTick=900; repell=false; }
+    if(badTrue==true){
+        badTick--;
+        }
+        if(badTick==0){
+            addItemInventory(2000,-1,0);
+            Level.explode(getPlayerX(),getPlayerY(),getPlayerZ(),20);
+            clientMessage(ChatColor.RED + "How dare you using a repell...")
+            repell=false;
+            badTick=900;
+            }
+            if(alea==5 && gravityzero==false){
+                gravityzero=true;
+                }
+                if(gravityzero==true){
+                    for(var i = 0; i < ents.length; i++){
+                    Entity.setVelY(ents[i], 0.5)
+                    gravitytimer--;
+                    }
+                    } 
+                    if(gravitytimer<0){
+                        gravityzero=false;
+                        gravitytimer=130;
+                        }
+                        ModPE.showTipMessage(gravitytimer)
+    if(alea==9){
+        switch(getRandom(0,10)){
+            case 1:
+            Level.setTime(14000)
+                clientMessage("§4Wake up, my troop");
+                Level.spawnMob(getPlayerX()+2,getPlayerY(),getPlayerZ(),32,"3herobrine.png")
+                Level.spawnMob(getPlayerX()-2,getPlayerY(),getPlayerZ(),32)
+                break;
+            case 2:
+            clientMessage(chatHerobrineOutput);
+                break;
+            case 3:
+              clientMessage(chatHerobrineOutput);
+                ModPE.playSoundFromFile("defeat.ogg");
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() + 1, 51);
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() - 1, 51);
+        setTile(Player.getX() + 7, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ(), 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() + 1, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() - 1, 51);
+        setTile(Player.getX() - 7, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() + 2, 51);
+        setTile(Player.getX() + 6, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() - 6, Player.getY() - 1, Player.getZ() - 2, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 4, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 4, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 4, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 4, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() + 5, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() - 3, 51);
+        setTile(Player.getX() - 5, Player.getY() - 1, Player.getZ() + 3, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() + 4, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() - 4, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() + 3, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() - 5, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() + 5, 51);
+        setTile(Player.getX() - 3, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() + 2, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() - 6, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() + 6, 51);
+        setTile(Player.getX() - 2, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX() + 1, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() + 1, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX() - 1, Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX() - 1, Player.getY() - 1, Player.getZ() + 7, 51);
+        setTile(Player.getX(), Player.getY() - 1, Player.getZ() - 7, 51);
+        setTile(Player.getX(), Player.getY() - 1, Player.getZ() + 7, 51);
+                break;
+            case 4:
+              clientMessage(chatHerobrineOutput); 
+                Level.spawnMob(getPlayerX(),getPlayerY(),getPlayerZ()-2,35)
+                break;
+}
+}
 }
 var nowAmount;
+var gravityzero=false;
+var gravitytimer=130;
 var nowId;
+var ents = Entity.getAll();
 var lastAmount;
 var lastId;
 var badTick=900;
 var badTrue=false;
-
+ 
 function procCmd(c) {
    var m = c.split(' ');
    var command = m[0];
@@ -425,55 +509,55 @@ clientMessage(ChatColor.GOLD+' Please restart blocklauncher!');
 break;}
 }
 }
-
+ 
 var dream = false;
-
+ 
 var repell = false;
-
+ 
 var ptick = 0;
-
+ 
 var px = null;
-
+ 
 var py = null;
-
+ 
 var pz = null;
-
+ 
 var dmg = 5;
-
+ 
 var dspawn = false;
-
+ 
 var wakeup = false;
-
+ 
 var cooldreamdown = false;
-
+ 
 var cooldown = 200;
-
+ 
 var wakeupt = 120;
-
+ 
 var winbrine;
-
+ 
 var endtimer = 40;
-
+ 
 var dHerobrine;
-
+ 
 var lava;
-
+ 
 var truetim = 0;
-
+ 
 function attackHook(a, b) {
     if (a == Herobrine) Level.addParticle(ParticleType.flame, Entity.getX(a), Entity.getY(a) + 1, Entity.getZ(a), 0, 0, 0, 20);
 }
-
+ 
 function hrandom(a, b) {
     return Math.floor(Math.random() * b + a);
 }
-
+ 
 function Vector3D(a, b, c) {
     this.x = a;
     this.y = b;
     this.z = c;
 }
-
+ 
 function lookDir() {
     var a = new Vector3D(0, 0, 0);
     var b = getYaw();
@@ -483,13 +567,13 @@ function lookDir() {
     a.z = Math.cos(java.lang.Math.toRadians(b)) * Math.cos(java.lang.Math.toRadians(c));
     return a;
 }
-
+ 
 function compareDistance(a, b) {
     return Math.abs(Entity.getX(a) - Player.getX()) < b && Math.abs(Entity.getY(a) - Player.getY()) < b && Math.abs(Entity.getZ(a) - Player.getZ()) < b;
 }
-
+ 
 function deathHook(a, b) {
-    if ("3herobrine.png" == Entity.getMobSkin(b)) {
+    if (b == SHerobrine) {
         Entity.remove(b);
         preventOverridingTick = 400;
         Level.spawnMob(Entity.getX(b), Entity.getY(b), Entity.getZ(b), 36);
@@ -536,7 +620,7 @@ if (b == getPlayerEnt() && 1 == ebrine) {
     ebrine=0;
 }
 }
-
+ 
 function getSurface(a, b) {
     var c = 0;
     for (var d = 1; d <= 128; d++) if (0 == Level.getTile(a, d, b)) {
@@ -545,7 +629,7 @@ function getSurface(a, b) {
     }
     return c;
 }
-
+ 
 function addFHerobrineRenderType(a) {
     var b = a.getModel();
     var c = 0;
@@ -572,15 +656,15 @@ function addFHerobrineRenderType(a) {
     g.clear();
     g.setTextureOffset(41, 16, true);
 }
-
+ 
 var FHerobrineRenderType = Renderer.createHumanoidRenderer();
-
+ 
 addFHerobrineRenderType(FHerobrineRenderType);
-
+ 
 function entityHurtHook(a, b, c) {
     if (b == getPlayerEnt() && a == winbrine) Entity.setVelY(getPlayerEnt(), 1.5);
 }
-
+ 
 function entityRemovedHook(a) {
     for (var b in chicken) if (a == chicken[b]) {
         chicken.splice(b, 1);
@@ -611,70 +695,59 @@ function entityRemovedHook(a) {
         return;
     }
 }
-
-function entityAddedHook(a) {
-    if (1 == spawned) {
-        if (10 == Entity.getEntityTypeId(a)) chicken.push(a);
-        if (11 == Entity.getEntityTypeId(a)) cow.push(a);
-        if (12 == Entity.getEntityTypeId(a)) pig.push(a);
-        if (13 == Entity.getEntityTypeId(a)) sheep.push(a);
-        if (14 == Entity.getEntityTypeId(a)) wolf.push(a);
-        if (15 == Entity.getEntityTypeId(a)) villager.push(a);
-        if (16 == Entity.getEntityTypeId(a)) mushroom.push(a);
-    }
-}
-
+ 
+ 
 function screenChangeHook(a) {
     if ("start_screen" == a) ;
 }
-
+ 
 ModPE.importScript = function(scriptURL, scriptName) {
-	var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
-	ctx.runOnUiThread(new java.lang.Runnable({ run: function() {
-		var ru  = new java.lang.Runnable({ run: function() {
-			try {
-				var scriptUrl = new java.net.URL(scriptURL);
-				var connection = scriptUrl.openConnection();
-				connection.setRequestMethod("GET");
-				connection.setDoOutput(true);
-				connection.connect();
-				connection.getContentLength();
-				var input = connection.getInputStream();
-				var contents = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
-				var bytesRead = 0;
-				while((bytesRead = input.read(contents)) != -1) { 
-					newScript += new java.lang.String(contents, 0, bytesRead);			   
-				}
-				var patchesFolder = ctx.getDir("modscripts", 0);
-				var scriptFile = new java.io.File(patchesFolder, scriptName);
-				var printWriter = new java.io.PrintWriter(scriptFile);
-				printWriter.write(newScript);
-				printWriter.flush();
-				printWriter.close();
-				try {
-					
-					net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(scriptFile, true);
-				} catch(e) {
-					//clientMessage("Error: Line 534: " + e);
-				}
-			} catch(e) {
-				clientMessage("Error: Line 534: " + e);
-			}
-		}});
-		
-		}
-	}));
+    var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
+    ctx.runOnUiThread(new java.lang.Runnable({ run: function() {
+        var ru  = new java.lang.Runnable({ run: function() {
+            try {
+                var scriptUrl = new java.net.URL(scriptURL);
+                var connection = scriptUrl.openConnection();
+                connection.setRequestMethod("GET");
+                connection.setDoOutput(true);
+                connection.connect();
+                connection.getContentLength();
+                var input = connection.getInputStream();
+                var contents = java.lang.reflect.Array.newInstance(java.lang.Byte.TYPE, 1024);
+                var bytesRead = 0;
+                while((bytesRead = input.read(contents)) != -1) { 
+                    newScript += new java.lang.String(contents, 0, bytesRead);             
+                }
+                var patchesFolder = ctx.getDir("modscripts", 0);
+                var scriptFile = new java.io.File(patchesFolder, scriptName);
+                var printWriter = new java.io.PrintWriter(scriptFile);
+                printWriter.write(newScript);
+                printWriter.flush();
+                printWriter.close();
+                try {
+                     
+                    net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(scriptFile, true);
+                } catch(e) {
+                    //clientMessage("Error: Line 534: " + e);
+                }
+            } catch(e) {
+                clientMessage("Error: Line 534: " + e);
+            }
+        }});
+         
+        }
+    }));
 }
-
+ 
 var newScript;
-
-
+ 
+ 
 var checkForUpdate=false;
 var updateWindow=false; 
 var newUpdate;
 var updateMod;
 var ctx = com.mojang.minecraftpe.MainActivity.currentMainActivity.get();
-
+ 
 function checkVersion() {
     var r  = new java.lang.Runnable() {
         run: function() {
@@ -715,7 +788,7 @@ function checkVersion() {
     var threadt = new java.lang.Thread(r);
     threadt.start();
 }
-
+ 
 function updateVersion() {
     try {
         var upd = new android.app.AlertDialog.Builder(ctx);        
@@ -749,12 +822,12 @@ function updateVersion() {
                             update.write(updateMod);
                             update.flush();
                             update.close();
-                             
+                              
                             try {
                                 net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(modpeFile, false);
                                 net.zhuoweizhang.mcpelauncher.ScriptManager.setEnabled(modpeFile, true);
                                 clientMessage("Downloaded and enabled!");
-                                   
+                                    
                             }
                             catch(err) {
                                 clientMessage("Error: \n" + err);
@@ -764,9 +837,9 @@ function updateVersion() {
                             clientMessage("Error: \n" + err);
                         }
                     }
-                
+                 
                 }
-               
+                
                 var threadt = new java.lang.Thread(ru);
                 threadt.start();
             }
@@ -778,4 +851,62 @@ function updateVersion() {
         clientMessage("Error: \n" + err);
     }
 }
-
+ 
+var SHerobrine;
+function destroyBlock(x, y, z, side) {
+    var jumpS = Math.floor(50* Math.random() + 1);
+    var jumpSA = Math.floor(70* Math.random() + 1);
+    if(jumpS==1){
+if(getTile(x, y, z) == 1 && spawned == 0){
+    SHerobrine = Level.spawnMob(x,y,z, EntityType.SPIDER, "3herobrine.png");
+                Entity.setRenderType(SHerobrine, 3);
+                Entity.setHealth(SHerobrine, 999999);
+                Entity.addEffect(SHerobrine, MobEffect.movementSpeed, 1e4, 5, true, false);
+                var a = Math.floor(11 * Math.random() + 1);
+                ModPE.playSoundFromFile("herobrine" + a + ".ogg");
+                spawned = 1;
+                setTile(x,y+1,z,0)
+    }
+    }
+    if(jumpSA==5 || jumpSA==10){
+        explode(x,y,z,2)
+    }
+    }
+     
+ 
+function isOnRange(entity1, entity2, distanceXZ, distanceY) {
+    if (!(Math.abs(Entity.getX(entity1) - Entity.getX(entity2)) <= distanceXZ)) return false;
+    if (!(Math.abs(Entity.getY(entity1) - Entity.getY(entity2)) <= distanceY)) return false;
+    if (!(Math.abs(Entity.getZ(entity1) - Entity.getZ(entity2)) <= distanceXZ)) return false;
+    return true
+}
+ 
+function doorOpen(x, y, z, enable){
+    var open = Level.getData(x,y,z);
+     
+    if (enable=1){
+    if (open<4 && open!=8){
+        open=open+4;
+        Level.playSound(x, y, z, "random.door_open", 1);
+    }
+    }
+    else{
+    if (open>=4 && open!=8){
+        open=open-4;
+        Level.playSound(x, y, z, "random.door_close", 1);
+    }
+    }
+     
+    setTile(x,y,z,getTile(x,y,z),open);
+}
+ 
+var zombrine=[];
+ 
+function getRandom(num1, num2){ // 랜덤 숫자 생성
+    var start = Math.max(num1, num2);
+    var end = Math.min(num1, num2);
+     
+    end -= start;
+    return parseInt(Math.random() * end) + start;
+}
+    
