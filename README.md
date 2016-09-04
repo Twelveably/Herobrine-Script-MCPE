@@ -1,7 +1,7 @@
 # Herobrine-Mod-MCPE
 The official Herobrine mod for MCPE.
 
-Current Version : 1.3.0
+Current Version : 1.4.0-alpha1
 
 Supported Devices : All (Exceptions for Asus users, they might have some problems.)
 
@@ -16,6 +16,7 @@ Tested & Developed on : Samsung Galaxy Tab 3 8.0
 ##Developers
 
 BagastheBird - Texture, Mod
+
 Gerdus4898 - None
 
 We are currently looking for Talented Modders that are interested working on this Mod.
@@ -82,11 +83,15 @@ For Herobrine's chat with Herobrine prefix.
       - [x] Jumpscare
          - [x] Player while
             - [x] Mining
-      - [ ] Traps (Upcoming Update)
+      - [ ] Traps
          - [ ] Quicksand trap
-         - [ ] Lava holes
-         - [ ] Animal trap
-         - [ ] Fake villages
+         - [x] Lava holes
+         - [x] Animal trap
+         - [x] Fake villages
+      - [ ] Building
+         - [x] Trap Castle
+         - [x] 2x2 Tunnels
+         - [x] Bloods
       - [x] Talking
       - [x] Sounds
    - [x] Ability
@@ -95,7 +100,7 @@ For Herobrine's chat with Herobrine prefix.
       - [x] Fireballs
       - [x] Fire rings
       - [x] Summon troops
-
+    
 -----------------------
 
 ##License
